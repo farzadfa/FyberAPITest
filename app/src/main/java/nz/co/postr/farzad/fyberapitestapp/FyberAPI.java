@@ -17,6 +17,7 @@ public class FyberAPI implements IGetId  {
     private static final String IP = "";
     private static String GID = "";
     private static String GOOGLE_AD_ID_LIMITED_TRACKING_ENABLED = "false";
+    private static String BASIC_URL = "";
     Context mContext;
     private static long Timestamp = 0;
 
@@ -24,7 +25,20 @@ public class FyberAPI implements IGetId  {
         this.mContext = mContext;
     }
 
-
+    private String makeBasicUrl(){
+       return  "http://api.fyber.com/feed/v1/offers.json?" +
+                "appid=" + APP_ID +
+                "&device_id=" + FUtil.getAndroidId(mContext) +
+                "&google_ad_id=" + GID +
+                "&google_ad_id_limited_tracking_enabled=" + GOOGLE_AD_ID_LIMITED_TRACKING_ENABLED +
+                "&ip=" + IP +
+                "&locale=" + LOCALE +
+//                "&ps_time=" + "" +
+                "&pub0=" + CAMPAIGN +
+                "&timestamp=" + Timestamp +
+                "&offer_types=" + "112" +
+                "&uid=" + USER_ID;
+    }
     public String makeGetRequest() {
 
 //        if (GID == null) {
@@ -38,18 +52,20 @@ public class FyberAPI implements IGetId  {
     }
 
     private String makeURL() {
-        String url = "http://api.fyber.com/feed/v1/offers.json?" +
-                "appid=" + APP_ID +
-                "&device_id=" + FUtil.getAndroidId(mContext) +
-                "&google_ad_id=" + GID +
-                "&google_ad_id_limited_tracking_enabled=" + GOOGLE_AD_ID_LIMITED_TRACKING_ENABLED +
-                "&ip=" + IP +
-                "&locale=" + LOCALE +
-//                "&ps_time=" + "" +
-                "&pub0=" + CAMPAIGN +
-                "&timestamp=" + Timestamp +
-                "&offer_types=" + "112" +
-                "&uid=" + USER_ID +
+        String url =
+//                "http://api.fyber.com/feed/v1/offers.json?" +
+//                "appid=" + APP_ID +
+//                "&device_id=" + FUtil.getAndroidId(mContext) +
+//                "&google_ad_id=" + GID +
+//                "&google_ad_id_limited_tracking_enabled=" + GOOGLE_AD_ID_LIMITED_TRACKING_ENABLED +
+//                "&ip=" + IP +
+//                "&locale=" + LOCALE +
+////                "&ps_time=" + "" +
+//                "&pub0=" + CAMPAIGN +
+//                "&timestamp=" + Timestamp +
+//                "&offer_types=" + "112" +
+//                "&uid=" + USER_ID +
+                makeBasicUrl() +
                 "&hashkey=" + getHashkey();
         Log.d(TAG, "makeURL: " + url);
 
@@ -58,17 +74,19 @@ public class FyberAPI implements IGetId  {
     }
 
     private String getHashkey() {
-        String toMakeHashStr = "appid=" + APP_ID +
-                "&device_id=" + FUtil.getAndroidId(mContext) +
-                "&google_ad_id=" + GID +
-                "&google_ad_id_limited_tracking_enabled=" + GOOGLE_AD_ID_LIMITED_TRACKING_ENABLED +
-                "&ip=" + IP +
-                "&locale=" + "en" +
-                "&offer_types=" + "112" +
-//                "&ps_time=" + FUtil.getCurrentLinuxTimeStamp() +
-                "&pub0=" + CAMPAIGN +
-                "&timestamp=" + Timestamp +
-                "&uid=" + USER_ID +
+        String toMakeHashStr =
+//                "appid=" + APP_ID +
+//                "&device_id=" + FUtil.getAndroidId(mContext) +
+//                "&google_ad_id=" + GID +
+//                "&google_ad_id_limited_tracking_enabled=" + GOOGLE_AD_ID_LIMITED_TRACKING_ENABLED +
+//                "&ip=" + IP +
+//                "&locale=" + LOCALE +
+//                "&offer_types=" + "112" +
+////                "&ps_time=" + FUtil.getCurrentLinuxTimeStamp() +
+//                "&pub0=" + CAMPAIGN +
+//                "&timestamp=" + Timestamp +
+//                "&uid=" + USER_ID +
+                makeBasicUrl()+
                 "&" + API_KEY;
         Log.d(TAG, "getHashkey: toMakeHashStr ----> " + toMakeHashStr);
         String hash = FUtil.makeSha1(toMakeHashStr);
