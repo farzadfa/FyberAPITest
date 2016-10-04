@@ -35,7 +35,7 @@ public class FyberAPI implements IGetId {
                 "&offer_types=" + "112" +
 //                "&ps_time=" + "" +
                 "&pub0=" + CAMPAIGN +
-                "&timestamp=" + FUtil.getCurrentLinuxTimeStamp() +
+                "&timestamp=" + Timestamp +
                 "&uid=" + USER_ID;
     }
 
